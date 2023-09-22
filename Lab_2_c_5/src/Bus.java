@@ -7,7 +7,7 @@ public class Bus extends Auto{
         super(mark, model, maxWeight, passengers, topSpeed, usedTrailer);
     }
     public void drive(){
-        if (getUsedTrailer() != null) System.out.println("Я еду на машине с прицепом!");
-        else System.out.println("Я еду на машине!");
+        if (getUsedTrailer() != null) System.out.println("Я еду на автобусе с прицепом!");
+        else System.out.println("Я еду на автобусе!");
     }
 }

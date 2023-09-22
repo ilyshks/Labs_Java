@@ -13,6 +13,7 @@ public class Main {
 
         for (IUseAuto vehicle: vehicles){
             vehicle.info();
+            vehicle.drive();
             System.out.println();
         }
     }
