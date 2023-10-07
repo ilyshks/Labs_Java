@@ -64,4 +64,5 @@ public abstract class Auto extends Vehicle implements IUseAuto{
     public void setUsedTrailer(Trailer usedTrailer) {
         this.usedTrailer = usedTrailer;
     }
+
 }

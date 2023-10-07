@@ -1,5 +1,6 @@
 public interface IUseAuto {
-    public void addTrailer(Trailer newTrailer);
-    public void drive();
-    public void info();
+    void addTrailer(Trailer newTrailer);
+    void drive();
+    void info();
+    IUseAuto copy();
 }

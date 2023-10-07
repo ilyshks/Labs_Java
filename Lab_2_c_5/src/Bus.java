@@ -10,4 +10,7 @@ public class Bus extends Auto{
         if (getUsedTrailer() != null) System.out.println("Я еду на автобусе с прицепом!");
         else System.out.println("Я еду на автобусе!");
     }
+    public Bus copy(){
+        return new Bus(getMark(), getModel(), getMaxWeight(), getPassengers(), getTopSpeed(), getUsedTrailer());
+    }
 }

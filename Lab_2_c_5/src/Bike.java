@@ -10,4 +10,7 @@ public class Bike extends Auto{
         if (getUsedTrailer() != null) System.out.println("Я еду на мотоцикле с прицепом!");
         else System.out.println("Я еду на мотоцикле!");
     }
+    public Bike copy(){
+        return new Bike(getMark(), getModel(), getMaxWeight(), getPassengers(), getTopSpeed(), getUsedTrailer());
+    }
 }

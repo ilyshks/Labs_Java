@@ -10,4 +10,7 @@ public class Truck extends Auto{
         if (getUsedTrailer() != null) System.out.println("Я еду на грузовике с прицепом!");
         else System.out.println("Я еду на грузовике!");
     }
+    public Truck copy(){
+        return new Truck(getMark(), getModel(), getMaxWeight(), getPassengers(), getTopSpeed(), getUsedTrailer());
+    }
 }

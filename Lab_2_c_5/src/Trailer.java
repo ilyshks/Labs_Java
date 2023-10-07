@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Trailer extends Vehicle{
     private int passengers;
     public Trailer(){
@@ -18,5 +20,11 @@ public class Trailer extends Vehicle{
 
     public void setPassengers(int passengers) {
         this.passengers = passengers;
+    }
+    public Trailer copy(){
+        return new Trailer(getMark(), getModel(), getMaxWeight(), passengers);
+    }
+    public boolean is_equal(Trailer other){
+        return getMark().equals(other.getMark()) && getModel().equals(other.getModel());
     }
 }
