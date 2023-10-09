@@ -61,18 +61,39 @@ public class Main {
                     case 1 -> {
                         controller.inputDataFromFile(fileDB);
                         if (useLog.equals("true")) controller.log(fileLog, "чтение данных из базы");
+                        controller.println("Данные успешно загружены из базы!");
                     }
-                    case 2 -> controller.addTrailers(inputMain);
-                    case 3 -> controller.addVehicles(inputMain);
-                    case 4 -> controller.changeTrailer(inputMain);
-                    case 5 -> controller.changeVehicle(inputMain);
-                    case 6 -> controller.delTrailer(inputMain);
-                    case 7 -> controller.delVehicle(inputMain);
+                    case 2 -> {
+                        controller.addTrailers(inputMain);
+                        controller.println("Новые прицепы добавлены!");
+                    }
+                    case 3 -> {
+                        controller.addVehicles(inputMain);
+                        controller.println("Новые ТС добавлены!");
+                    }
+                    case 4 -> {
+                        controller.changeTrailer(inputMain);
+                        controller.println("Данные прицепа обновлены!");
+                    }
+                    case 5 -> {
+                        controller.changeVehicle(inputMain);
+                        controller.println("Данные ТС обновлены!");
+                    }
+                    case 6 -> {
+                        controller.delTrailer(inputMain);
+                        controller.println("Прицеп успешно удалён!");
+                    }
+                    case 7 -> {
+                        controller.delVehicle(inputMain);
+                        controller.println("ТС успешно удалено!");
+                    }
                     case 8 -> {
                         controller.outputDataToFile(fileDB, controller.getTrailers(), controller.getVehicles());
                         if (useLog.equals("true")) controller.log(fileLog, "запись данных в базу");
+                        controller.println("Данные успешно записаны в базу!");
                     }
                 }
+                controller.print("Введите номер функции: ");
                 task = controller.inputLimitedInt(inputMain, 1, 9);
             }
             controller.outputDataToFile(fileDB, controller.getTrailers(), controller.getVehicles());

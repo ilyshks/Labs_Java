@@ -32,6 +32,7 @@ public class DataController {
     public void addTrailers(Scanner in){
         view.print("Введите кол-во прицепов: ");
         int cntTrailers = inputConsolePositiveInt(in);
+        in.nextLine();
         for(int i = 0; i < cntTrailers; i++){
             view.print("Введите марку прицепа: ");
             String mark = in.nextLine();
@@ -40,7 +41,7 @@ public class DataController {
             view.print("Введите макс. грузоподъёмность прицепа: ");
             double maxWeight = inputConsolePositiveDouble(in);
             view.print("Введите кол-во пассажиров, которое вмещает прицеп: ");
-            int passengers = inputConsolePositiveInt(in);
+            int passengers = inputConsoleNotNegativeInt(in);
             model.addTrailer(new Trailer(mark, TrailerModel, maxWeight, passengers));
         }
     }
@@ -53,6 +54,7 @@ public class DataController {
             view.println("Мотоцикл - введите 1, автобус - 2, легковая машина - 3, грузовик - 4.");
             view.print("Введите номер ТС: ");
             int type = inputLimitedInt(in, 1, 4);
+            in.nextLine();
             view.print("Введите марку ТС: ");
             String mark = in.nextLine();
             view.print("Введите модель ТС: ");
@@ -369,6 +371,17 @@ public class DataController {
                 else view.print("Введите заново целое положительное число: ");
             }catch (Exception e){
                 view.print("Введите заново целое положительное число: ");
+            }
+        }
+    }
+    public int inputConsoleNotNegativeInt(Scanner input){
+        while (true){
+            try{
+                int value = input.nextInt();
+                if (value >= 0) return value;
+                else view.print("Введите заново целое неторицательное число: ");
+            }catch (Exception e){
+                view.print("Введите заново целое неторицательное число: ");
             }
         }
     }
