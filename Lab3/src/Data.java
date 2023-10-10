@@ -10,32 +10,94 @@ public class Data {
         setVehicles(other_vehicles);
     }
     public void inputDataFromFile(String fileName) {
-        try (FileInputStream fin = new FileInputStream(fileName)) {
-            ObjectInputStream file = new ObjectInputStream(fin);
+        try (FileReader fin = new FileReader(fileName)) {
+            BufferedReader file = new BufferedReader(fin);
 
-            int trailersSize = file.readInt();
+            String[] line = file.readLine().split("\\s+");
+            int trailersSize = Integer.parseInt(line[line.length-1]);
             trailers = new ArrayList<>(trailersSize);
 
             for (int i = 0; i < trailersSize; i++) {
-                Trailer loadTrailer = (Trailer) file.readObject();
+                line = file.readLine().split("\\s+");
+                String mark = line[line.length-1];
+                line = file.readLine().split("\\s+");
+                String model = line[line.length-1];
+                line = file.readLine().split("\\s+");
+                double maxWeight = Double.parseDouble(line[line.length-1]);
+                line = file.readLine().split("\\s+");
+                int passengers = Integer.parseInt(line[line.length-1]);
+                Trailer loadTrailer = new Trailer(mark, model, maxWeight, passengers);
                 addTrailer(loadTrailer);
             }
 
-            int vehiclesSize = file.readInt();
+            line = file.readLine().split("\\s+");
+            int vehiclesSize = Integer.parseInt(line[line.length-1]);
             vehicles = new ArrayList<>(vehiclesSize);
 
             for (int i = 0; i < vehiclesSize; i++) {
-                String className = file.readLine();
-                Object obj = file.readObject();
-                switch (className) {
-                    case ("Bike") -> addVehicle((Bike) obj);
-                    case ("Bus") -> addVehicle((Bus) obj);
-                    case ("Car") -> addVehicle((Car) obj);
-                    case ("Truck") -> addVehicle((Truck) obj);
+                line = file.readLine().split("\\s+");
+                String className = line[line.length-1];
+                line = file.readLine().split("\\s+");
+                String mark = line[line.length-1];
+                line = file.readLine().split("\\s+");
+                String model = line[line.length-1];
+                line = file.readLine().split("\\s+");
+                double maxWeight = Double.parseDouble(line[line.length-1]);
+                line = file.readLine().split("\\s+");
+                int passengers = Integer.parseInt(line[line.length-1]);
+                line = file.readLine().split("\\s+");
+                double topSpeed = Double.parseDouble(line[line.length-1]);
+                String trailerMark = file.readLine();
+                if (trailerMark.equals("null")) {
+                    switch (className) {
+                        case ("Bike") -> {
+                            Bike loadBike = new Bike(mark, model, maxWeight, passengers, topSpeed);
+                            addVehicle(loadBike);
+                        }
+                        case ("Bus") -> {
+                            Bus loadBus = new Bus(mark, model, maxWeight, passengers, topSpeed);
+                            addVehicle(loadBus);
+                        }
+                        case ("Car") -> {
+                            Car loadCar = new Car(mark, model, maxWeight, passengers, topSpeed);
+                            addVehicle(loadCar);
+                        }
+                        case ("Truck") -> {
+                            Truck loadTruck = new Truck(mark, model, maxWeight, passengers, topSpeed);
+                            addVehicle(loadTruck);
+                        }
+                    }
+                }else{
+                    trailerMark = trailerMark.split("\\s+")[1];
+                    line = file.readLine().split("\\s+");
+                    String trailerModel = line[line.length-1];
+                    line = file.readLine().split("\\s+");
+                    double trailerMaxWeight = Double.parseDouble(line[line.length - 1]);
+                    line = file.readLine().split("\\s+");
+                    int trailerPassengers = Integer.parseInt(line[line.length - 1]);
+                    Trailer trailer = new Trailer(trailerMark, trailerModel, trailerMaxWeight, trailerPassengers);
+                    switch (className) {
+                        case ("Bike") -> {
+                            Bike loadBike = new Bike(mark, model, maxWeight, passengers, topSpeed, trailer);
+                            addVehicle(loadBike);
+                        }
+                        case ("Bus") -> {
+                            Bus loadBus = new Bus(mark, model, maxWeight, passengers, topSpeed, trailer);
+                            addVehicle(loadBus);
+                        }
+                        case ("Car") -> {
+                            Car loadCar = new Car(mark, model, maxWeight, passengers, topSpeed, trailer);
+                            addVehicle(loadCar);
+                        }
+                        case ("Truck") -> {
+                            Truck loadTruck = new Truck(mark, model, maxWeight, passengers, topSpeed, trailer);
+                            addVehicle(loadTruck);
+                        }
+                    }
                 }
 
             }
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

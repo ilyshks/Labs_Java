@@ -72,5 +72,13 @@ public abstract class Auto extends Vehicle implements IUseAuto , Serializable {
     public void setUsedTrailer(Trailer usedTrailer) {
         this.usedTrailer = usedTrailer;
     }
+    public String toString(){
+        String info = "Марка: " + getMark() + "\n" + "Модель: " + getModel() + "\n" + "Макс. гузоподъёмность: " +
+                getMaxWeight() + "\n" + "Кол-во пассажиров: " + getPassengers() + "\n";
+        info += "Макс. скорость: " + getTopSpeed() + "\n";
+        if (usedTrailer != null) info += getUsedTrailer().toString() + "\n";
+        else info += "null" + "\n";
+        return info;
+    }
 
 }

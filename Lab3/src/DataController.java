@@ -32,7 +32,6 @@ public class DataController {
     public void addTrailers(Scanner in){
         view.print("Введите кол-во прицепов: ");
         int cntTrailers = inputConsolePositiveInt(in);
-        in.nextLine();
         for(int i = 0; i < cntTrailers; i++){
             view.print("Введите марку прицепа: ");
             String mark = in.nextLine();
@@ -54,7 +53,6 @@ public class DataController {
             view.println("Мотоцикл - введите 1, автобус - 2, легковая машина - 3, грузовик - 4.");
             view.print("Введите номер ТС: ");
             int type = inputLimitedInt(in, 1, 4);
-            in.nextLine();
             view.print("Введите марку ТС: ");
             String mark = in.nextLine();
             view.print("Введите модель ТС: ");
@@ -69,7 +67,7 @@ public class DataController {
             view.print("Ваш ответ: ");
             int isUseTrailer = inputLimitedInt(in, 0, 1);
             if (isUseTrailer == 1){
-                if (model.getTrailers().size() > 0) {
+                if (!model.getTrailers().isEmpty()) {
                     view.printTrailers(model.getTrailers());
                     view.print("Введите ID прицепа: ");
                     int TrailerID = inputLimitedInt(in, 1, model.getTrailers().size() - 1);
@@ -103,7 +101,7 @@ public class DataController {
         }
         view.printTrailers(model.getTrailers());
         view.print("Введите ID прицепа, данные которого хотите изменить: ");
-        int index = inputLimitedInt(in, 1, cntTrailers - 1);
+        int index = inputLimitedInt(in, 1, cntTrailers) - 1;
 
         String mark = model.getTrailers().get(index).getMark();
         String TrailerModel = model.getTrailers().get(index).getModel();
@@ -136,7 +134,7 @@ public class DataController {
         int changeMaxPassengers = inputLimitedInt(in, 0, 1);
         if (changeMaxPassengers == 1){
             view.print("Введите новое кол-во пассажиров: ");
-            passengers = inputConsolePositiveInt(in);
+            passengers = inputConsoleNotNegativeInt(in);
         }
         model.changeTrailer(index, mark, TrailerModel, maxWeight, passengers);
     }
@@ -148,7 +146,7 @@ public class DataController {
         }
         view.printVehicles(model.getVehicles());
         view.print("Введите ID ТС, данные которого хотите изменить: ");
-        int index = inputLimitedInt(in, 1, cntVehicles - 1);
+        int index = inputLimitedInt(in, 1, cntVehicles) - 1;
 
         String mark = model.getVehicles().get(index).getMark();
         String vehicleModel = model.getVehicles().get(index).getModel();
@@ -196,10 +194,10 @@ public class DataController {
         view.print("Ваш ответ: ");
         int changeUsedTrailer = inputLimitedInt(in, 0, 1);
         if (changeUsedTrailer == 1){
-            if (model.getTrailers().size() > 0) {
+            if (!model.getTrailers().isEmpty()) {
                 view.printTrailers(model.getTrailers());
                 view.print("Введите ID прицепа: ");
-                int TrailerID = inputLimitedInt(in, 1, model.getTrailers().size() - 1);
+                int TrailerID = inputLimitedInt(in, 1, model.getTrailers().size()) - 1;
                 usedTrailer = model.getTrailers().get(TrailerID);
             }else{
                 view.println("Нет доступных прицепов.");
@@ -208,23 +206,23 @@ public class DataController {
         model.changeVehicle(index, mark, vehicleModel, maxWeight, passengers, topSpeed, usedTrailer);
     }
     public void delTrailer(Scanner in){
-        if (model.getTrailers().size() == 0){
+        if (model.getTrailers().isEmpty()){
             view.println("Нет доступных прицепов.");
             return;
         }
         view.printTrailers(model.getTrailers());
         view.print("Введите ID прицепа, который хотите удалить: ");
-        int index = inputLimitedInt(in, 1, model.getTrailers().size() - 1);
+        int index = inputLimitedInt(in, 1, model.getTrailers().size()) - 1;
         model.delTrailer(index);
     }
     public void delVehicle(Scanner in){
-        if (model.getVehicles().size() == 0){
+        if (model.getVehicles().isEmpty()){
             view.println("Нет доступных транспортных средств.");
             return;
         }
         view.printVehicles(model.getVehicles());
         view.print("Введите ID ТС, который хотите удалить: ");
-        int index = inputLimitedInt(in, 1, model.getVehicles().size() - 1);
+        int index = inputLimitedInt(in, 1, model.getVehicles().size()) - 1;
         model.delVehicle(index);
     }
     public void printVehicleInfo(IUseAuto vehicle){
@@ -291,7 +289,7 @@ public class DataController {
             view.println("ТС с прицепом?");
             view.println("Да - введите целое число > 0, нет - любое другое.");
             boolean useTrailer = isUseTrailer(in);
-            if(!useTrailer || model.getTrailers().size() == 0) {
+            if(!useTrailer || model.getTrailers().isEmpty()) {
                 if (useTrailer) view.println("Нет доступных прицепов. ТС будет без прицепа!");
                 switch (type) {
                     case (1) -> {
@@ -355,7 +353,7 @@ public class DataController {
     public int inputLimitedInt(Scanner input, int min, int max){
         while (true){
             try{
-                int value = input.nextInt();
+                int value = Integer.parseInt(input.nextLine());
                 if (value >= min && value <= max) return value;
                 else view.print("Введите заново целое положительное число от " + min + " до "+ max +": ");
             }catch (Exception e){
@@ -366,7 +364,7 @@ public class DataController {
     public int inputConsolePositiveInt(Scanner input){
         while (true){
             try{
-                int value = input.nextInt();
+                int value = Integer.parseInt(input.nextLine());
                 if (value > 0) return value;
                 else view.print("Введите заново целое положительное число: ");
             }catch (Exception e){
@@ -377,7 +375,7 @@ public class DataController {
     public int inputConsoleNotNegativeInt(Scanner input){
         while (true){
             try{
-                int value = input.nextInt();
+                int value = Integer.parseInt(input.nextLine());
                 if (value >= 0) return value;
                 else view.print("Введите заново целое неторицательное число: ");
             }catch (Exception e){
@@ -388,7 +386,7 @@ public class DataController {
     public double inputConsolePositiveDouble(Scanner input){
         while (true){
             try{
-                double value = input.nextDouble();
+                double value = Double.parseDouble(input.nextLine());
                 if (value > 0) return value;
                 else view.print("Введите заново положительное число: ");
             }catch (Exception e){
@@ -409,7 +407,7 @@ public class DataController {
             throw new RuntimeException(e);
         }
     }
-    public void log(BufferedWriter fileLog, String str){
+    public void log(FileWriter fileLog, String str){
         view.printLog(fileLog, str);
     }
 }

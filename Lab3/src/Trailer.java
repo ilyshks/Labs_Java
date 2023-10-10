@@ -30,4 +30,8 @@ public class Trailer extends Vehicle implements Serializable {
     public boolean is_equal(Trailer other){
         return getMark().equals(other.getMark()) && getModel().equals(other.getModel());
     }
+    public String toString(){
+        return "Марка: " + getMark() + "\n" + "Модель: " + getModel() + "\n" + "Макс. гузоподъёмность: " +
+                getMaxWeight() + "\n" + "Кол-во пассажиров: " + getPassengers();
+    }
 }

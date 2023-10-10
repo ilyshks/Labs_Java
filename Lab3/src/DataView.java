@@ -21,16 +21,15 @@ public class DataView {
     }
 
     public void outputDataToFile(String fileName, ArrayList<Trailer> t, ArrayList<IUseAuto> v){
-        try (FileOutputStream fos = new FileOutputStream(fileName)) {
-            ObjectOutputStream file = new ObjectOutputStream(fos);
-            file.writeInt(t.size());
+        try (FileWriter file = new FileWriter(fileName)) {
+            file.append("Количество прицепов: ").append(Integer.toString(t.size())).append("\n");
             for (Trailer trailer : t)
-                file.writeObject(trailer);
+                file.append(trailer.toString()).append("\n");
 
-            file.writeInt(v.size());
+            file.append("Количество ТС: ").append(Integer.toString(v.size())).append("\n");
             for (IUseAuto vehicle : v) {
-                file.writeChars(vehicle.getClass().getSimpleName());
-                file.writeObject(vehicle);
+                file.append("Название класса: ").append(vehicle.getClass().getSimpleName()).append("\n");
+                file.append(vehicle.toString());
             }
 
         }catch (IOException e) {
@@ -67,11 +66,11 @@ public class DataView {
             System.out.println(info);
         }
     }
-    public void printLog(BufferedWriter fileLog, String str){
+    public void printLog(FileWriter fileLog, String str){
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date dateNow = new Date();
         try{
-            fileLog.write(formatter.format(dateNow) + "\t" + str);
+            fileLog.append(formatter.format(dateNow)).append("\t").append(str).append("\n");
         }catch (IOException e){
             throw new RuntimeException(e);
         }
