@@ -1,0 +1,51 @@
+Remove
+
+ArrayList 1
+TotalTime 2500
+Median 2500
+LinkedList 1
+TotalTime 5100
+Median 5100
+HashMap 1
+TotalTime 3200
+Median 3200
+
+ArrayList 10
+TotalTime 8600
+Median 860
+LinkedList 10
+TotalTime 17100
+Median 1710
+HashMap 10
+TotalTime 11800
+Median 1180
+
+ArrayList 100
+TotalTime 47700
+Median 477
+LinkedList 100
+TotalTime 292995
+Median 2929
+HashMap 100
+TotalTime 45904
+Median 459
+
+ArrayList 1000
+TotalTime 945796
+Median 945
+LinkedList 1000
+TotalTime 23697702
+Median 23697
+HashMap 1000
+TotalTime 539201
+Median 539
+
+ArrayList 10000
+TotalTime 43817601
+Median 4381
+LinkedList 10000
+TotalTime 6030424779
+Median 603042
+HashMap 10000
+TotalTime 2870820
+Median 287
