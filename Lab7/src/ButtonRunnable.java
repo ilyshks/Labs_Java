@@ -5,17 +5,10 @@ import java.util.Random;
 public class ButtonRunnable extends Thread {
     private final MyButton button;
     private static boolean stopWork = false;
-    private static MyButton winner;
+
     private static final int DELAY = 1000;
     public ButtonRunnable(MyButton b) {
         button = b;
-    }
-    public static boolean getStopWork(){
-        return stopWork;
-    }
-
-    public static MyButton getWinner(){
-        return winner;
     }
 
     public static void setStopWork(boolean flag) {
@@ -28,15 +21,14 @@ public class ButtonRunnable extends Thread {
         int speed = new Random().nextInt(10, 100);
         try {
             while (!stopWork && (button.getX() < screenWidth - button.getWidth())) {
-                if (stopWork) interrupt();
+                if (stopWork) return;
                 sleep(DELAY);
                 button.makeMoving(speed); //вызов метода перемещения кнопки
             }
             if (!stopWork){
                 stopWork = true;
-                winner = button;
+                JOptionPane.showConfirmDialog(null, "The winner is " + button.getText() + "!", "Winner!", JOptionPane.DEFAULT_OPTION);
             }
-            interrupt();
         }
         catch (InterruptedException e) {
             System.out.println(e.getMessage());

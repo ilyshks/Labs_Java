@@ -15,8 +15,8 @@ public class MyButton extends JButton {
         setContentAreaFilled(false);
 
     }
-    public void setColor(Color c){
-        UsedColor = c;
+    public void setColor(int indx){
+        UsedColor = colors[indx];
     }
     public void makeMoving(int speed){
         setBounds(getX() + speed, getY(), getWidth(), getHeight());
